@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import Radium from 'radium';
+import classes from './App.css';
 import Person from './Components/Person/Person';
 
 class App extends Component {
@@ -63,47 +62,30 @@ class App extends Component {
     })
   }
   render() {
-    const style= {
-      backgroundColor: 'green',
-      color:'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      marginTop:'10px',
-      cursor: 'pointer',
-      ':hover':{
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    }
     let persons = null;
+    let btnClass = '';
     if(this.state.showPersons){
       persons = ( <div>
         {this.state.persons.map((person,index) => this.paintPerson(person,index)) }
       </div>);
-      style.backgroundColor = 'red';
-      style[':hover']={
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      btnClass=classes.Red;
     }
-   let classes =[];
+   let classesApp =[];
    if(this.state.persons.length<=2){
-     classes.push('red');
+     classesApp.push(classes.red);
    }
    if(this.state.persons.length<=1){
-     console.log("Debe colocarlo negrita");
-     classes.push('bold');
+     classesApp.push(classes.bold);
    }
 
     return (
-      <div className="App">
-        <p className={classes.join(' ')}>This really working!</p>  
-          <button style={style} onClick={this.tooglePersonsHandler}>{this.state.showPersons?'Hide':'Show'} Persons</button>
+      <div className={classes.App}>
+        <p className={classesApp.join(' ')}>This really working!</p>  
+          <button className={btnClass} onClick={this.tooglePersonsHandler}>{this.state.showPersons?'Hide':'Show'} Persons</button>
           {persons}
       </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
